@@ -1,7 +1,7 @@
 package systems.boos;
 
-import com.codepoetics.protonpack.StreamUtils;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,9 +33,11 @@ public class BadWorkHash {
     Collections.reverse(valueStrings);
 
     // add the index of each element to the element itself
-    List<Long> withIndexAdded = StreamUtils.zipWithIndex(valueStrings.stream())
-      .map(x -> x.getIndex() + Integer.parseInt(x.getValue()))
-      .toList();
+    List<Integer> withIndexAdded = new LinkedList<>();
+    for (int i = 0; i < valueStrings.size(); i++) {
+      int indexPlusValue = i + Integer.parseInt(valueStrings.get(i));
+      withIndexAdded.add(indexPlusValue);
+    }
 
     // Project to hexadecimal numbers and convert to string
     String result = withIndexAdded
